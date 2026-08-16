@@ -27,4 +27,4 @@ Investigate and report:
 
 Return a structured summary as your result, section by section in the order above. The caller writes the files; your report is the whole deliverable.
 
-Be specific over complete, do not be verbose. A path and a line number beats a paragraph of description. If a task turns out to be unimplementable as written, say so plainly and explain what's blocking it.
+Be specific over complete. A path and a line number beats a paragraph of description. If a task turns out to be unimplementable as written, say so plainly and explain what's blocking it.

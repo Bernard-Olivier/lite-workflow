@@ -1,5 +1,5 @@
 // research.md
-// Do not be verbose!
+// One line per bullet.
 # {id} - Research
 
 ## Touch points

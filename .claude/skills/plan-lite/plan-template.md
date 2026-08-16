@@ -1,5 +1,5 @@
 // plan.md
-// Do not be verbose!
+// One line per field.
 # {id} - {title}
 
 ## 1. **{task title}**

@@ -1,5 +1,5 @@
 // task.md
-// Do not be verbose!
+// One line per bullet.
 # {id} - {title}
 **Status**: Not started | In progress | Blocked | Done
 **Description**: A short description of the task.

@@ -1,5 +1,5 @@
 // feature.md
-// Do not be verbose!
+// One line per bullet.
 # {feature} - {title}
 **Status**: Not started | In progress | Blocked | Done
 **Description**: A short description of the feature.

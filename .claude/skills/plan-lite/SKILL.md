@@ -38,14 +38,14 @@ Read `task.md` and the feature's `feature.md` before anything else. **`task.md` 
 
 ## Steps
 
-1. **Research.** Invoke the `research-lite` skill with `$task_id`. It forks into an isolated agent and returns its report to this turn — the exploration spends its context rather than this session's, so let it do the reading. Ask the user nothing while it runs.
-2. **Write `research.md`** from [research-template.md](research-template.md) as soon as research returns. Carry its paths, line numbers, commands and example references across verbatim — they are the useful part, and `/build-lite` runs the build and test commands exactly as written there. Strip the `//` comment lines; they are instructions to you, not content.
+1. **Research.** Invoke the `research-lite` skill with `$task_id`. It forks into an isolated agent and returns its report to this turn, so let it do the reading — the exploration spends its context, not this session's. Ask the user nothing while it runs.
+2. **Write `research.md`** from [research-template.md](research-template.md) as soon as research returns. Carry its paths, line numbers, commands and example references across verbatim — they are the useful part, and `/build-lite` runs the build and test commands exactly as written there. Strip the `//` comment lines.
 3. **Report the findings** in a few lines, and surface anything research flagged as blocked or unimplementable before proposing sub-tasks.
 4. **Draft the sub-tasks in the chat.** For each: a title, what changes, the files it touches, and how to know it is done. Chat only at this stage.
 5. **Refine with the user.** This is where implementation details get settled — approach, trade-offs, ordering, what to leave out. Ask in batches of 2-4 questions. Revise and re-present until they approve.
 6. **Write `plan.md`** from [plan-template.md](plan-template.md), stripping the `//` comment lines. Every sub-task status starts as `Not started`.
 7. **Update `task.md`** only if the session changed a major decision — a requirement, a boundary, something ruled out. Append it to **Notes** and leave the requirements as they stand: the contract records what the task must do, not how the plan does it. If the change alters what the task delivers, say so and send the user to `/ideate-lite`.
-8. **Report** the sub-tasks in build order, then the next step: `/clear`, then `/build-lite $task_id`. Say the clear explicitly — the build reads `plan.md`, `task.md` and `research.md` from disk, so this session's context is spent.
+8. **Report** the sub-tasks in build order, then the next step: `/clear`, then `/build-lite $task_id`. Say the clear explicitly — the build reads `plan.md`, `task.md` and `research.md` from disk.
 
 ## Sub-task sizing
 
