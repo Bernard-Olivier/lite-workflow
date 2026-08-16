@@ -10,11 +10,3 @@
 
 ## Out of Scope
 * Helps to outline scope.
-
-## Tasks
-* `{task id}` - a short description, in the order they should be built.
-* ...
-
-## Notes
-* Extra context or important info.
-* Append any important new decision here.
