@@ -1,6 +1,6 @@
 // task.md
 # {id} - {title}
-**Status**: Not started | In progress | Done
+**Status**: Not started | In progress | Blocked | Done
 **Description**: A short description of the task.
 **Dependencies**: a list of task ids.
 
