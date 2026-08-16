@@ -43,7 +43,7 @@ If it is unclear which, ask. Do not guess.
 4. **Get approval.** The user approves, cuts, splits, merges or reorders. Revise in the chat and re-present. Repeat until they approve.
 5. **Allocate ids.** See [Ids](#ids).
 6. **Write the artifacts.** `feature.md` from [feature-template.md](feature-template.md), and one `{task}/task.md` per task from [task-template.md](task-template.md). Strip the `//` comment lines from the templates; they are instructions to you, not content. Every status starts as `Not started`.
-7. **Report** the feature id, the tasks in build order, and that `/plan-lite {task id}` is next.
+7. **Report** the feature id and the tasks in build order, then name the next step: `/clear`, then `/plan-lite {task id}`. Say the clear explicitly — planning starts from the artifacts, so nothing in this session is worth carrying over.
 
 ## Ids
 
@@ -77,6 +77,6 @@ Propose the split, name the reason, and let the user decide. Do not resize a tas
 4. Draft the revised tasks in the chat and get approval, same as for a new feature.
 5. On approval, write the changes: edit the tasks that changed, add new ones with the next free ids, and append the decision to the relevant **Notes**. Leave untouched tasks exactly as they are, statuses included.
 6. Delete a task's directory only when the user asks for it. Otherwise mark it out of scope in `feature.md` and say why.
-7. Report which tasks changed, and that any of them already planned need `/plan-lite` re-running.
+7. Report which tasks changed, and that any of them already planned need `/clear`, then `/plan-lite {task id}` re-running.
 
 If the request is really a new task rather than an edit to an existing one, say so and append it instead. Additions are cheap; changes to work already done are not.

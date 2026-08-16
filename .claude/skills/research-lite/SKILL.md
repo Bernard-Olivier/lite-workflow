@@ -1,5 +1,5 @@
 ---
-name: research
+name: research-lite
 description: Investigate the codebase for a planned feature and report findings. Runs in an isolated subagent.
 argument-hint: [task id]
 arguments: task id
@@ -7,7 +7,7 @@ arguments: task id
 
 # Feature research
 
-Read `artifacts/lite-workflow/{feature}/{task}/task.md` first. Everything below is scoped to the task.
+The task id: `$task id`. Find the task directory by globbing `artifacts/lite-workflow/*/{task id}/` and read its `task.md` first. Everything below is scoped to the task.
 
 Investigate and report:
 
