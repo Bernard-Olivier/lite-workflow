@@ -1,4 +1,5 @@
 // plan.md
+// Do not be verbose!
 # {id} - {title}
 
 ## 1. **{task title}**

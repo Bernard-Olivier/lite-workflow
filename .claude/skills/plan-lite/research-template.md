@@ -1,4 +1,5 @@
 // research.md
+// Do not be verbose!
 # {id} - Research
 
 ## Touch points

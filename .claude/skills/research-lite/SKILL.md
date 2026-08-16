@@ -3,9 +3,6 @@ name: research
 description: Investigate the codebase for a planned feature and report findings. Runs in an isolated subagent.
 argument-hint: [task id]
 arguments: task id
-context: fork
-agent: Explore
-background: false
 ---
 
 # Feature research
@@ -24,4 +21,4 @@ Investigate and report:
 
 Return a structured summary as your result. Do not write files — report back to the caller, which writes them.
 
-Be specific over complete. A path and a line number beats a paragraph of description. If a task turns out to be unimplementable as written, say so plainly and explain what's blocking it.
+Be specific over complete, do not be verbose. A path and a line number beats a paragraph of description. If a task turns out to be unimplementable as written, say so plainly and explain what's blocking it.

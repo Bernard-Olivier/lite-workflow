@@ -1,8 +1,10 @@
 # Feature workflow skills
 
-A lite, 3 step AI workflow that takes a feature from a rough idea to reviewed, staged code, with the artifacts on disk as the only state.
-Consists of 4 Claude Code skills; ideate-lite, plan-lite, research-lite & build-lite. The first three are the workflow
-steps below; research-lite is not invoked directly, plan-lite spawns it as an isolated sub-agent.
+A lite, 3-step AI workflow that takes a feature from a rough idea to reviewed, staged code, with the artifacts on
+disk as the only state.
+
+It ships four Claude Code skills. `ideate-lite`, `plan-lite` and `build-lite` are the three steps below.
+`research-lite` is never invoked directly; `plan-lite` spawns it as an isolated sub-agent.
 
 ## Workflow
 
@@ -12,7 +14,7 @@ steps below; research-lite is not invoked directly, plan-lite spawns it as an is
 | 2    | `/plan-lite <task-id>`           | `research.md` + `plan.md`               | `research-template.md`, `plan-template.md` & `task.md` |
 | 3    | `/build-lite <task-id> [--auto]` | staged code changes                     | `plan.md` & `task.md`                                  |
 
-The AI agent never commits. It stages changes once a human has reviewed them; committing and raising the pr is yours.
+The agent never commits. It stages changes once they have been reviewed; committing and raising the PR is yours.
 
 ### Artifacts
 
@@ -27,45 +29,49 @@ artifacts
         plan.md
 ```
 
-Task ids are globally unique slugs (e.g. `auth-refresh-token`), so `/plan-lite` and `/build-lite` take a bare task id
-and find its directory by globbing `artifacts/lite-workflow/*/{task}/`.
+Task ids are globally unique identifiers (e.g. feature letters `aa`, then task number `00` together make `aa-00`), 
+so `/plan-lite` and `/build-lite` take a bare task id and find its directory by globbing `artifacts/lite-workflow/*/{task}/`.
 
-Artifacts are committed alongside the code. They are the workflow's only state, so they need to survive an interrupted
-session and travel with the branch.
+Commit the artifacts alongside the code. They are the workflow's only state, so they need to survive an interrupted
+session and travel with the branch. It is preferred to delete the feature/task directories when they are done.
 
 ### 1. Ideate
 
-We start the workflow by invoking `/ideate-lite` with a feature idea as an argument. Ideate turns a rough idea into
-multiple trackable tasks. The session is about sharing context with the AI agent, refining requirements and
-breaking the feature into tasks (tasks are pr size). A `feature.md` and multiple `task.md` files will be created.
+Invoke `/ideate-lite` with a feature idea. The agent works through the idea with you, refining the requirements and
+breaking the feature into PR-sized tasks. It writes a `feature.md` and a `task.md` per task.
+
+The session is about sharing context: what the feature is for, what it must do, and where the boundaries between
+tasks fall.
 
 ### 2. Plan
 
-Invoke `/plan-lite` with the task id as an argument. Plan will research the codebase and create an
-implementation plan for the task. The implementation plan consists of multiple sub-tasks (commit size). The session is about helping the AI
-agent understand the existing codebase, refining implementation details and breaking the task up into smaller pieces of work.
-The AI agent will spawn a sub-agent using the `/research-lite` skill to understand the codebase, so that exploring it
-does not crowd out the planning session's context.
-A `research.md` and `plan.md` will be created.
+Invoke `/plan-lite` with a task id. The agent first spawns `research-lite` as a sub-agent to explore the codebase,
+so that exploration does not crowd out the planning session's context.
 
-If any major decisions or changes are made during the session, then the `task.md` file will be updated.
-You can amend the plan by re-running the session with the same task id. On a re-run the skill reports how stale
-`research.md` is and asks whether to reuse it or run a fresh research pass, then amends `plan.md`.
+It then works with you to refine implementation details and break the task into commit-sized sub-tasks. It writes a
+`research.md` and a `plan.md`, and updates `task.md` if the session changes any major decision.
+
+Re-run with the same task id to amend the plan. The agent reports how stale `research.md` is, asks whether to reuse
+it or run a fresh research pass, then amends `plan.md`.
 
 ### 3. Build
 
-Invoke `/build-lite` with the task id as an argument. Build will iterate over the sub-tasks within `plan.md` until the task is
-complete. An iteration consists of an implementation, verification (build, run unit tests, fix diagnostics), a sub-agent
-review and a human review of the sub-task. Once the sub-task is verified (passes verification, and both reviews) then it
-will be marked `Done` and its changes staged.
+Invoke `/build-lite` with a task id. The agent iterates over the sub-tasks in `plan.md` until the task is complete.
+One iteration covers one sub-task: implement, verify (build, unit tests, fix diagnostics), a sub-agent review, then
+your review. When a sub-task passes all three, the agent marks it `Done` and stages its changes.
 
-Once all sub-tasks are `Done`, the ai agent will spawn a review sub-agent and those finding will start another iteration.
-Lastly a human review will be requested, any finding will start another iteration, the task will be marked `Done` when
-the human review has approved. The skill supports an Auto mode (`--auto`) that swaps the per-sub-task human review with a
-sub-agent review, so iterations run unattended. The final human review still stands: under `--auto` nothing is staged
-during an iteration, and the whole task's changes are staged together once that final review has approved.
+Once every sub-task is `Done`, the agent runs a review sub-agent across the whole task, and its findings start
+another iteration. It then asks for your review, and your findings likewise start another iteration. The task is
+marked `Done` when you approve.
 
-If changes to the task or plan are needed then we stop the build session and transition to the necessary session; the
-current sub-task is marked `Blocked` with the reason recorded against it, so the next session does not start blind.
-Sub-tasks have a status (`Not started`, `In progress`, `Blocked`, `Done`) and so sessions can be interrupted and
-finished later. Features, tasks and sub-tasks all use these same four values.
+`--auto` swaps the per-sub-task human review for a sub-agent review, so iterations run unattended. The final human
+review still stands: nothing is staged during an iteration, and the whole task's changes are staged together once
+you approve.
+
+## General
+
+If the task or plan needs changing, stop the build session and move to the session that owns that change. The agent
+marks the current sub-task `Blocked` and records the reason against it, so the next session does not start blind.
+
+Features, tasks and sub-tasks all share the same four statuses (`Not started`, `In progress`, `Blocked`, `Done`),
+so sessions can be interrupted and finished later.
