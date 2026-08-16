@@ -1,8 +1,8 @@
 ---
 name: research
 description: Investigate the codebase for a planned feature and report findings. Runs in an isolated subagent.
-argument-hint: [slug]
-arguments: slug
+argument-hint: [task id]
+arguments: task id
 context: fork
 agent: Explore
 background: false
@@ -10,7 +10,7 @@ background: false
 
 # Feature research
 
-Read `artifacts/features/$slug/story.md` first. Everything below is scoped to those stories.
+Read `artifacts/{feature}/{taskid}/task.md` first. Everything below is scoped to the story.
 
 Investigate and report:
 
