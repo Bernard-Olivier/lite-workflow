@@ -2,12 +2,12 @@
 name: ideate-lite
 description: Turn a rough feature idea into trackable tasks with requirements. Interactive.
 argument-hint: [idea]
-arguments: idea
+disable-model-invocation: true
 ---
 
 # Idea to tasks
 
-The idea: `$idea`. If it is empty, ask for one before doing anything else.
+The idea: `$ARGUMENTS`. If it is empty, ask for one before doing anything else.
 
 Artifacts live under `artifacts/lite-workflow/{feature}/`, with a directory per task inside it:
 
@@ -47,9 +47,9 @@ If it is unclear which, ask. Do not guess.
 
 ## Ids
 
-Feature ids are two lowercase letters, task ids are the feature id plus a two-digit number: `aa`, then `aa-00`, `aa-01`.
+Feature ids are two lowercase letters, task ids are the feature id plus a two-digit number: `aa`, then `aa-00`, `aa-05`.
 
-Glob `artifacts/lite-workflow/*/` for the ids already in use and create a new unused one from the feature name, e.g. `add-auth` becomes `aa`. Number tasks from `00` in increments of 5 (helps with latter additions, between tasks), in build order.
+Glob `artifacts/lite-workflow/*/` for the ids already in use and create a new unused one from the feature name, e.g. `add-auth` becomes `aa`. Number tasks from `00` in increments of 5, in build order — the gaps leave room to insert a task between two others later.
 
 Ids are referenced in conversation and by `/plan-lite` and `/build-lite`. Never reuse a retired id for a different task, and never renumber a task that already exists. A gap in the sequence is fine.
 
@@ -61,7 +61,7 @@ One task is one PR's worth of work. A task is the wrong size when it:
 - Covers two unrelated behaviours, or reads as more than roughly five commits — propose a split, and say why.
 - Is needed by two other tasks — promote it to a setup task at the top of the order rather than duplicating it.
 
-Tasks should be a vertical slices rather than horizontal. They should each be a small, complete piece of functionality and be testable.
+Tasks should be vertical slices rather than horizontal: each a small, complete, testable piece of functionality.
 
 Order tasks so each one builds on what is already merged. Record real ordering constraints in **Dependencies**; leave it empty when there are none rather than inventing them.
 

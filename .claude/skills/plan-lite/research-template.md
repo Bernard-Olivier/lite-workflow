@@ -14,8 +14,10 @@
 * Libraries already available that fit.
 * Flag anything that would need adding.
 
-## Test surface
-* Where tests for this area live, how they run, what the existing convention looks like.
+## Build and test
+* **Build**: `the exact command`
+* **Test**: `the exact command for this area`
+* Where those tests live and the convention to follow.
 
 ## Unknowns
 * What makes the task harder than it reads: shared state, migrations, callers that would break, missing seams.

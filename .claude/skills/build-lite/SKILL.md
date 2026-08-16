@@ -2,16 +2,17 @@
 name: build-lite
 description: Implement tasks from a feature plan, ticking them off as they complete.
 argument-hint: [task id] [--auto]
-arguments: task id, mode
+arguments: task_id mode
+disable-model-invocation: true
 ---
 
 # Plan to code
 
 ## Resolve arguments first
 
-The arguments are `$task id` then `$mode`.
+The arguments are `$task_id` then `$mode`.
 
-- If `$task id` is empty, ask for one and stop.
+- If `$task_id` is empty, ask for one and stop.
 - If `$mode` is exactly `--auto`, the mode is **auto**. Otherwise it is **review**.
 
 Find the task directory by globbing `artifacts/lite-workflow/*/{task id}/`. If the glob finds nothing, list the task ids that do exist and stop. If it finds no `plan.md`, tell the user to run `/plan-lite` first and stop.
