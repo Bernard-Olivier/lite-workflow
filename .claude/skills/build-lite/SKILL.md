@@ -1,6 +1,6 @@
 ---
 name: build-lite
-description: Implement tasks from a feature plan, ticking them off as they complete.
+description: Implement a task's plan sub-task by sub-task, ticking them off as they complete.
 argument-hint: [task id] [--auto]
 arguments: task_id mode
 disable-model-invocation: true
@@ -15,9 +15,9 @@ The arguments are `$task_id` then `$mode`.
 - If `$task_id` is empty, ask for one and stop.
 - If `$mode` is exactly `--auto`, the mode is **auto**. Otherwise it is **review**.
 
-Find the task directory by globbing `artifacts/lite-workflow/*/$task_id/`. If the glob finds nothing, list the task ids that do exist and stop. If it finds no `plan.md`, tell the user to run `/plan-lite` first and stop.
+The task directory is `artifacts/lite-workflow/$task_id/`. If it does not exist, list the task ids that do exist and stop. If it holds no `plan.md`, tell the user to run `/plan-lite` first and stop.
 
-Read `plan.md` and `task.md`, and `research.md` for the build and test commands. Read them from disk now rather than trusting anything seen earlier in the session — another session may have moved them on.
+Read `plan.md` and `task.md` from disk now rather than trusting anything seen earlier in the session — another session may have moved them on. `plan.md`'s **Context** holds the build and test commands.
 
 State the mode, the sub-task you are resuming at, and why, before making any change.
 
@@ -35,7 +35,7 @@ State the mode, the sub-task you are resuming at, and why, before making any cha
 - Build only what the current sub-task describes. Not the next one, not a refactor you noticed on the way.
 - `task.md` is the contract and `plan.md` is the route. If the code wants to go somewhere neither describes, that is a stop condition, not a judgement call.
 - Update `plan.md` as you go. It is the only state — a session that dies mid-sub-task must be resumable from the file alone.
-- Match the surrounding code — `research.md` lists the patterns to follow.
+- Match the surrounding code — `plan.md`'s **Context** lists the patterns to follow.
 
 ## The iteration
 
@@ -57,8 +57,8 @@ A sub-task is `Done` only once it has passed all three of verify, sub-agent revi
 2. **Its findings start another iteration.** If the changes are large enough then append them to `plan.md` as new sub-tasks with the next free numbers, then work them exactly as above. **`Done` is append-only** — a correction is a new sub-task, so the built history stays readable.
 3. **Human review.** Present the whole task: what was built, the verification results, and anything the reviews raised that you rejected. Wait.
 4. **Their findings likewise start another iteration** — same appending, same loop, back to step 1 when they are done.
-5. **On approval**, stage the task's changes together — in auto mode this is the first staging of the run — including the updated artifacts, since they travel with the branch. Set `task.md`'s **Status** to `Done`, and update the feature's **Status** in `feature.md` if this was its last task.
-6. **Report** what is staged, what is not, and that committing is theirs. If the feature has a task left, name it: `/clear`, then `/plan-lite {next task id}`.
+5. **On approval**, stage the task's changes together — in auto mode this is the first staging of the run — including the updated artifacts, since they travel with the branch. Set `task.md`'s **Status** to `Done`.
+6. **Report** what is staged, what is not, and that committing is theirs. If a task under the same two-letter code is still not `Done`, name the next one: `/clear`, then `/plan-lite {next task id}`.
 
 ## Modes
 
@@ -74,7 +74,7 @@ Sub-agents are the lever: what they read stays in their context, and only their 
 
 - Reviewers fetch their own diff and return findings, never the diff itself.
 - Delegate exploration when a sub-task's files are unfamiliar or scattered — a sub-agent reports where the change goes, you make it. Implementation stays in this session; it is what the reviews and the user are judging.
-- Read the files a sub-task lists, not the modules around them. `research.md` already has the surrounding context.
+- Read the files a sub-task lists, not the modules around them. `plan.md`'s **Context** already has the surrounding context.
 - Read `plan.md` and `task.md` once at the top, and again only after another session may have written to them.
 
 If the session still gets long, `plan.md` holds the state. Say so, and let the user clear and re-run `/build-lite $task_id` — it resumes at the first sub-task that is not `Done`.
