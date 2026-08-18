@@ -9,15 +9,15 @@ disk as the only state — so any session can be interrupted and picked up later
 | ---- | -------------------------------- | ----------------------------------------------------- |
 | 1    | `/ideate-lite <idea>`            | a `task.md` per PR-sized task                         |
 | 2    | `/plan-lite <task id>`           | a `plan.md` of commit-sized sub-tasks                 |
-| 3    | `/build-lite <task id> [--auto]` | staged code changes                                   |
+| 3    | `/build-lite <task id> [--auto]` | reviewed code changes in the working tree             |
 
 `/clear` between steps. Each one starts from the artifacts on disk, and the skills say so when they hand off.
 
 Steps 1 and 2 are conversations — you approve the breakdown before anything is written, and re-running either with
-the same id amends what it produced. Step 3 iterates sub-task by sub-task until you approve the task; `--auto`
-swaps the per-sub-task review for a sub-agent so it runs unattended, and the final review is still yours.
+the same id amends what it produced. Step 3 iterates sub-task by sub-task, each one reviewed by a sub-agent and then
+by you; `--auto` drops the per-sub-task review so it runs unattended, and you review the whole task at the end.
 
-The agent never commits. It stages changes once they have been reviewed; committing and raising the PR is yours.
+The agent leaves its work in the working tree. Staging, committing and raising the PR are yours.
 
 ## Artifacts
 

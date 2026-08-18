@@ -1,7 +1,7 @@
 // task.md
 // One line per bullet.
 # {id} - {title}
-**Status**: Not started | In progress | Blocked | Done
+**Status**: Not started | In progress | Done
 **Description**: A short description of the task.
 **Dependencies**: a list of task ids.
 
