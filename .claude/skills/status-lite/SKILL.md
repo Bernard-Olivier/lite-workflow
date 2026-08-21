@@ -19,4 +19,4 @@ Resolve each repo's status from the status table in [report-template.md](report-
 
 1. **Collect the tasks.** Per tracked repo, glob `{path}/artifacts/lite-workflow/*/task.md` and read each one's **Status**. Count the `task.md` files for the **Tasks** column and the `plan.md` files beside them for **Plans**. Read the repos in one batch rather than one round-trip each.
 2. **Drill down.** For every task at `In progress`, read its `plan.md` and check whether any sub-task is `Review required`. A task at `In progress` with no `plan.md` stays `In progress`.
-3. **Report** the table from [report-template.md](report-template.md), `//` comment lines stripped. Say nothing else — the table carries the rest.
+3. **Report** the table from [report-template.md](report-template.md), `//` comment lines stripped. Say nothing else — the table carries the rest. Ignore the `Done` tasks from the Tasks and Plans counts.
