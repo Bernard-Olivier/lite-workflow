@@ -31,7 +31,7 @@ Glob `artifacts/lite-workflow/*/task.md` and read the titles and descriptions. I
    Amendment: draft only the tasks that change and name the ones you are leaving alone. If the request is really a new task rather than an edit to an existing one, say so and add it instead — additions are cheap, changes to work already done are not.
 3. **Get approval.** Revise and re-present until they approve. Their approval is the only thing that ends this step.
 4. **Allocate ids.** See [Task ids](#task-ids).
-5. **Write the artifacts.** One `{task id}/task.md` per task from [task-template.md](task-template.md). Strip the `//` comment lines.
+5. **Write the artifacts.** One `{task id}/task.md` per task from [task-template.md](task-template.md). Strip the `//` comment lines. Every task starts at **Status** `Not started`;
    Amendment: size the rewrite to the change — a small one appends to the notes section and leaves the rest alone, a large one rewrites the task.
 6. **Report** the tasks in build order, then the next step: `/clear`, then `/plan-lite {task id}`. Say the clear explicitly — planning starts from the artifacts on disk.
    Amendment: say which tasks changed; any of them already planned need `/plan-lite` re-running.
